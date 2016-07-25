@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project xmlns:artifact="urn:maven-artifact-ant" name="maven-ant-tasks-junit" default="maven-retrieve" basedir="." >
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../eclipse/"/>
+    <property name="junit.output.dir" value="/test/junit"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+	<property name="lib.dir" value="lib-jars" />
+    <property name="sta-commons.location" value="../sta-commons"/>
+	
+
+	
+	
+	
+	
+	<target name="maven-retrieve">
+		<path id="maven-ant-tasks.classpath" path="lib-for-ant/maven-ant-tasks-2.1.3.jar" />
+		<typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant" classpathref="maven-ant-tasks.classpath" />
+		<artifact:pom id="target.pom" file="pom.xml" />
+		<artifact:dependencies pomRefId="target.pom" filesetId="dependency.fileset" versionsId="dependency.versions" scopes="compile, system, runtime, provided, test"/>
+		<!-- ライブラリクリーニング -->
+		<delete failonerror="no" includeEmptyDirs="true">
+			<fileset dir="${lib.dir}" />
+		</delete>
+		<mkdir dir="${lib.dir}" />
+		<copy todir="${lib.dir}">
+			<fileset refid="dependency.fileset" />
+			<mapper classpathref="maven-ant-tasks.classpath" classname="org.apache.maven.artifact.ant.VersionMapper" from="${dependency.versions}" to="flatten" />
+		</copy>
+		<!-- 不要ライブラリ削除（JUnitでエラーが発生するため） -->
+		<delete failonerror="no">
+			<fileset dir="${lib.dir}" includes="**/*.pom" />
+			<fileset dir="${lib.dir}" includes="**/ant*.jar" />
+		</delete>
+	</target>
+	
+    <path id="sta-commons.classpath">
+        <pathelement location="${sta-commons.location}/target/test-classes"/>
+        <pathelement location="${sta-commons.location}/target/classes"/>
+    </path>
+    <path id="WebDriverTest.classpath">
+        <pathelement location="target/classes"/>
+        <path refid="sta-commons.classpath"/>
+		<fileset dir="${lib.dir}" includes="**/*" />
+    </path>
+    <target name="init">
+        <mkdir dir="target/classes"/>
+        <copy includeemptydirs="false" todir="target/classes">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="target/classes"/>
+    </target>
+    <target depends="clean" name="cleanall">
+        <ant antfile="build.xml" dir="${sta-commons.location}" inheritAll="false" target="clean"/>
+    </target>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects">
+        <ant antfile="build.xml" dir="${sta-commons.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="target/classes" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="WebDriverTest.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="BankCodeSearch">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="jp.or.uken.jgs2015.sta.examples.tests.BankCodeSearch" todir="${junit.output.dir}"/>
+            <classpath refid="WebDriverTest.classpath"/>
+        </junit>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+              	
+</project>
