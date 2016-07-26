@@ -14,7 +14,7 @@ public class ZenginSearchByCodeResultPage extends PageIdentifiedByUrl {
 		waitForLoading();
 	}
 
-	public TableElement tblResult(){
+	public TableElement tblResult() {
 		return new TableElement(driver, By.cssSelector("table.tbl1"));
 	}
 

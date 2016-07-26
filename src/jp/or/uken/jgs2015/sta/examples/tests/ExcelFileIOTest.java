@@ -17,8 +17,7 @@ public class ExcelFileIOTest {
 	}
 
 	@Test
-	public void ReadSheetTest() throws Exception
-	{
+	public void ReadSheetTest() throws Exception {
 		WorkbookEx wb = new WorkbookEx().open(INPUT_FILE);
 		SheetEx ws = wb.getSheet("コード検索");
 
@@ -34,8 +33,7 @@ public class ExcelFileIOTest {
 	}
 
 	@Test
-	public void ReadCellByIndexTest() throws Exception
-	{
+	public void ReadCellByIndexTest() throws Exception {
 		WorkbookEx wb = new WorkbookEx().open(INPUT_FILE);
 		SheetEx ws = wb.getSheet("コード検索");
 
@@ -48,18 +46,11 @@ public class ExcelFileIOTest {
 	}
 
 	@Test
-	public void ReadCellByNameTest() throws Exception
-	{
+	public void ReadCellByNameTest() throws Exception {
 		/*
-		HashMap<String, Integer> map = new HashMap<String, Integer>(){
-			{
-				put("No", 0);
-				put("金融機関コード", 1);
-				put("支店コード", 2);
-				put("結果", 3);
-			}
-		};
-		*/
+		 * HashMap<String, Integer> map = new HashMap<String, Integer>(){ {
+		 * put("No", 0); put("金融機関コード", 1); put("支店コード", 2); put("結果", 3); } };
+		 */
 
 		WorkbookEx wb = new WorkbookEx().open(INPUT_FILE);
 		SheetEx ws = wb.getSheet("コード検索", 0);
@@ -72,8 +63,7 @@ public class ExcelFileIOTest {
 	}
 
 	@Test
-	public void WriteCellByIndexTest() throws Exception
-	{
+	public void WriteCellByIndexTest() throws Exception {
 		WorkbookEx wb = new WorkbookEx().open(INPUT_FILE);
 		SheetEx ws = wb.getSheet("コード検索");
 

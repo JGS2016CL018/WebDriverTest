@@ -7,7 +7,7 @@ import jp.or.uken.jgs2015.sta.examples.scenarios.ShinseiBankMainScenario;
 
 import org.junit.Test;
 
-public class PopupWindowTest extends SeleniumTestCase{
+public class PopupWindowTest extends SeleniumTestCase {
 
 	@Test
 	public void testOpenKinriWindow() throws Exception {

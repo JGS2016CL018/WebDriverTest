@@ -13,11 +13,11 @@ public class ShinseiBankTopPage extends PageIdentifiedByUrl {
 		baseUrl = "http://www.shinseibank.com/";
 	}
 
-	private LinkElement lnkKinriYen(){
+	private LinkElement lnkKinriYen() {
 		return findLinkElement(By.linkText("金利一覧"));
 	}
 
-	public ShinseiBankRateListPage openRateList(){
+	public ShinseiBankRateListPage openRateList() {
 		lnkKinriYen().click();
 		ShinseiBankRateListPage newPage = new ShinseiBankRateListPage(driver);
 		newPage.waitForPopup();

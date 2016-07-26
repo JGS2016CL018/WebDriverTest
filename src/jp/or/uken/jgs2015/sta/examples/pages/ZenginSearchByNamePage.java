@@ -14,11 +14,11 @@ public class ZenginSearchByNamePage extends PageIdentifiedByUrl {
 		baseUrl = "http://zengin.ajtw.net/index02.php";
 	}
 
-	public TextBoxElement txtBankName(){
+	public TextBoxElement txtBankName() {
 		return findTextBoxElement(By.name("wd"));
 	}
 
-	private ButtonElement btnSearch(){
+	private ButtonElement btnSearch() {
 		return findButtonElement(By.cssSelector("input.i75"));
 	}
 

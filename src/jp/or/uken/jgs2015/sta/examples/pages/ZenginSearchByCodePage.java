@@ -14,15 +14,15 @@ public class ZenginSearchByCodePage extends PageIdentifiedByUrl {
 		baseUrl = "http://zengin.ajtw.net/index03.php";
 	}
 
-	public TextBoxElement txtBankCode(){
+	public TextBoxElement txtBankCode() {
 		return findTextBoxElement(By.name("inbc"));
 	}
 
-	public TextBoxElement txtBranchCode(){
+	public TextBoxElement txtBranchCode() {
 		return findTextBoxElement(By.name("insc"));
 	}
 
-	private ButtonElement btnSearch(){
+	private ButtonElement btnSearch() {
 		return findButtonElement(By.cssSelector("input.i75"));
 	}
 

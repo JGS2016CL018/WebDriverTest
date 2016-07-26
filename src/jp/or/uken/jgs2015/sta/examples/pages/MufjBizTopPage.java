@@ -13,11 +13,12 @@ public class MufjBizTopPage extends PageIdentifiedByUrl {
 		baseUrl = "https://bizstation.bk.mufg.jp/index.html";
 	}
 
-	private LinkElement lnkLoginWin(){
-		return findLinkElement(By.cssSelector("div.lNavDfwLoginMenu.mt10 > ul > li > a"));
+	private LinkElement lnkLoginWin() {
+		return findLinkElement(By
+				.cssSelector("div.lNavDfwLoginMenu.mt10 > ul > li > a"));
 	}
 
-	public MufjBizLoginPage openLoginWindow(){
+	public MufjBizLoginPage openLoginWindow() {
 		lnkLoginWin().click();
 		MufjBizLoginPage newPage = new MufjBizLoginPage(driver);
 		newPage.waitForPopup();

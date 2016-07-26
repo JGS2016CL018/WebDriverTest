@@ -13,7 +13,7 @@ public class ShinseiBankRateListPage extends PageIdentifiedByUrl {
 		baseUrl = "http://sre.shinseibank.com/InterestRateC/rate_list.aspx";
 	}
 
-	public LinkElement lnkPD30(){
+	public LinkElement lnkPD30() {
 		return findLinkElement(By.linkText("パワーダイレクト円定期預金30"));
 	}
 }

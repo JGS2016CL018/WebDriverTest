@@ -25,47 +25,46 @@ public class DataDrivenTest extends SeleniumTestCase {
 
 	@AfterClass
 	public static void tearDown() throws Exception {
-		Path outputFileName = new Config().evidenceSavePath().resolve("TestData.xls");
+		Path outputFileName = new Config().evidenceSavePath().resolve(
+				"TestData.xls");
 		book.saveAs(outputFileName.toString());
 	}
 
 	/*
-	 * ヘッダのないExcelシートを利用する際のサンプル
-	 * 項目はindexで指定
+	 * ヘッダのないExcelシートを利用する際のサンプル 項目はindexで指定
 	 */
 	@Test
 	public void testBankCodeSearchByName() throws Exception {
 		SheetEx sheet = book.getSheet("名前検索");
 		ZenginSearchScenario scenario = new ZenginSearchScenario(driver);
-		for (Row row : sheet){
+		for (Row row : sheet) {
 			RowEx rowEx = new RowEx(sheet, row);
-			if (!rowEx.isBody()){
+			if (!rowEx.isBody()) {
 				continue;
 			}
-			if (scenario.SearchByName(rowEx)){
+			if (scenario.SearchByName(rowEx)) {
 				rowEx.cells(2).setValue("pass");
-			}else{
+			} else {
 				rowEx.cells(2).setValue("fail");
 			}
 		}
 	}
 
 	/*
-	 * ヘッダ付きのExcelシートを利用する際のサンプル
-	 * 項目は列名(ヘッダで指定された名前)で指定
+	 * ヘッダ付きのExcelシートを利用する際のサンプル 項目は列名(ヘッダで指定された名前)で指定
 	 */
 	@Test
 	public void testBankCodeSearchByCode() throws Exception {
 		SheetEx sheet = book.getSheet("コード検索", 1);
 		ZenginSearchScenario scenario = new ZenginSearchScenario(driver);
-		for (Row row : sheet){
+		for (Row row : sheet) {
 			RowEx rowEx = new RowEx(sheet, row);
-			if (!rowEx.isBody()){
+			if (!rowEx.isBody()) {
 				continue;
 			}
-			if (scenario.SearchByCode(rowEx)){
+			if (scenario.SearchByCode(rowEx)) {
 				rowEx.cells("結果").setValue("pass");
-			}else{
+			} else {
 				rowEx.cells("結果").setValue("fail");
 			}
 		}

@@ -18,8 +18,7 @@ public class ShinseiBankMainScenario {
 		topPage = new ShinseiBankTopPage(driver);
 	}
 
-	public void 金利一覧を開く() throws IOException
-	{
+	public void 金利一覧を開く() throws IOException {
 		topPage.open();
 		topPage.capture("PopupTest\\Shinsei\\SS001.png");
 		ratePage = topPage.openRateList();

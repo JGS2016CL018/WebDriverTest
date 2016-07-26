@@ -29,10 +29,11 @@ public class ZenginSearchScenario {
 		String bankName = row.cells(1).getValue();
 		return SearchByName(id, bankName);
 	}
+
 	/*
 	 * 必要な項目が多い場合は、Beansを利用することも検討してください
 	 */
-	public boolean SearchByName(String id, String name) throws IOException  {
+	public boolean SearchByName(String id, String name) throws IOException {
 		String prefix = "SearchByName\\" + id;
 
 		SearchByNamePage.open();
@@ -53,10 +54,12 @@ public class ZenginSearchScenario {
 		String branchCode = row.cells("支店コード").getValue();
 		return SearchByCode(id, bankCode, branchCode);
 	}
+
 	/*
 	 * 必要な項目が多い場合は、Beansを利用することも検討してください
 	 */
-	public boolean SearchByCode(String id, String bankCode, String branchCode) throws IOException  {
+	public boolean SearchByCode(String id, String bankCode, String branchCode)
+			throws IOException {
 		String prefix = "SearchByCode\\" + id;
 
 		SearchByCodePage.open();
